@@ -12,4 +12,13 @@ router.get("/notes",(req,res)=>{
     })
 })
 
+router.post("/notes",(req,res)=>{
+    const notesDb=JSON.parse(fs.readFileSync("db/db.json"))
+    const newNote=req.body
+    newNote.id=uniqid()
+    notesDb.push(newNote)
+    fs.writeFileSync("db/db.json",JSON.stringify(notesDb))
+    res.json(notesDb)
+})
+
 module.exports=router
