@@ -21,4 +21,12 @@ router.post("/notes",(req,res)=>{
     res.json(notesDb)
 })
 
+router.delete("/notes/:id",(req,res)=>{
+    const notesDb=JSON.parse(fs.readFileSync("db/db.json"))  
+    const removeNote=notesDb.filter((note)=>(note.id !==req.params.id)) 
+    fs.writeFileSync("db/db.json",JSON.stringify(removeNote))
+    res.json(removeNote)
+})
+
+
 module.exports=router
